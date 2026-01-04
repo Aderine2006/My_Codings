@@ -22,7 +22,7 @@ class Solution:
             i = j + 1 + length
         return decoded
 
-EXPLANATION OF THE ABOVE PROGRAM:
+EXPLANATION OF THE ABOVE PROGRAM: ( CHATGPT LINK: https://chatgpt.com/share/695aad8d-38c0-8009-a566-60029b2d58da )
 
 I’ll explain what each part does and why it’s written that way.
 
