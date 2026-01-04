@@ -21,3 +21,258 @@ class Solution:
             # Move to the next string
             i = j + 1 + length
         return decoded
+
+EXPLANATION OF THE ABOVE PROGRAM:
+
+I’ll explain what each part does and why it’s written that way.
+
+🧩 Big picture first
+
+Goal:
+
+encode: convert a list of strings → one single string
+
+decode: convert that long single string → back to original list
+
+Why do this?
+Because sometimes we need to send/store a list of strings as one string (e.g., network transfer, files), but we also need a way to get them back correctly.
+
+The trick used here:
+
+👉 store each string as
+
+length#string
+
+
+Example:
+
+["cat", "dog"]  →  "3#cat3#dog"
+
+✅ Now line-by-line explanation
+1. Class definition
+class Solution:
+
+
+This simply defines a class named Solution.
+Your two functions live inside this class.
+
+🧷 ENCODE FUNCTION
+def encode(self, s):
+
+
+Function name: encode
+Input: s → list of strings like ["hi", "abc"]
+
+encoded = ""
+
+
+Creates an empty string.
+
+We will gradually build the encoded string inside this variable.
+
+for strs in s:
+
+
+Loops through every string in the list:
+
+first loop → first string
+
+second loop → second string
+
+etc.
+
+Each single string is temporarily called strs.
+
+encoded += f"{len(strs)}#{strs}"
+
+
+This is the heart of encoding.
+
+What happens:
+
+len(strs)
+
+gets number of characters in the string
+
+e.g., "apple" → 5
+
+#
+
+delimiter to separate length & string
+
+{strs}
+
+actual string content
+
+So if string = "apple"
+It becomes:
+
+"5#apple"
+
+
+If list was ["hi", "abc"]
+encoding builds like:
+
+""           →  "2#hi"
+"2#hi"       →  "2#hi3#abc"
+
+return encoded
+
+
+Finally returns the large single encoded string.
+
+🎁 Summary of encode
+
+It converts:
+
+["hi", "abc", "hello"]
+
+
+into:
+
+"2#hi3#abc5#hello"
+
+🔓 DECODE FUNCTION (reverse process)
+def decode(self, strs):
+
+
+Input strs is the long encoded string produced earlier.
+
+Example:
+
+"2#hi3#abc"
+
+decoded = []
+
+
+Creates an empty list where decoded strings will be stored.
+
+i = 0
+
+
+This variable tracks where we are in the encoded string while scanning.
+
+while i < len(strs):
+
+
+Loop runs until we have processed the whole encoded string.
+
+j = strs.find('#', i)
+
+
+This finds the position of the next # starting from index i.
+
+Why?
+
+Because everything before # is the length.
+
+Example:
+
+"5#apple"
+ ^
+ i = 0
+ find('#',0) returns index 1
+
+
+So:
+
+substring from i to j → the length of the string
+
+length = int(strs[i:j])
+
+
+This:
+
+slices out the number between i and j
+
+converts it from string → integer
+
+Example:
+
+i=0, j=1
+strs[0:1] = "5"
+int("5") = 5
+
+
+So length tells how many characters the next string has.
+
+decoded.append(strs[j+1:j+1+length])
+
+
+This extracts the actual word:
+
+start after # → j + 1
+
+take length characters
+
+Example encoded string part:
+
+5#apple
+  ^
+  j+1
+take 5 characters → "apple"
+
+
+Add "apple" into the decoded list.
+
+i = j + 1 + length
+
+
+This moves pointer to next encoded part.
+
+Why?
+
+We skip:
+
+length number part
+
+actual string
+
+Then continue decoding the rest.
+
+return decoded
+
+
+Finally returns list of original strings
+
+🎉 Example full flow
+
+Input list:
+
+["cat", "dog"]
+
+Encode
+"3#cat3#dog"
+
+Decode step-by-step
+
+read length 3
+
+read 3 chars → "cat"
+
+next read length 3
+
+read 3 chars → "dog"
+
+Output list:
+
+["cat", "dog"]
+
+🧠 Why do we use length + # ?
+
+Because strings may themselves contain:
+
+spaces
+
+commas
+
+even #
+
+Example:
+
+["ab#cd"]
+
+
+We can’t split by # safely.
+
+So instead, we tell exact length — foolproof method.
