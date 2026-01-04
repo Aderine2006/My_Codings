@@ -1,0 +1,23 @@
+class Solution:
+    def encode(self, s):
+        # code here
+        encoded = ""
+        for strs in s:
+            # Use length of string and a delimiter to separate strings
+            encoded += f"{len(strs)}#{strs}"
+        return encoded
+
+    def decode(self, strs):
+        # code here
+        decoded = []
+        i = 0
+        while i < len(strs):
+            # Find the position of the delimiter
+            j = strs.find('#', i)
+            # Get the length of the string
+            length = int(strs[i:j])
+            # Extract the string using the length
+            decoded.append(strs[j+1:j+1+length])
+            # Move to the next string
+            i = j + 1 + length
+        return decoded
