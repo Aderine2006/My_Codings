@@ -1,0 +1,18 @@
+n=2346
+x = 0
+sum = 0
+place = 1
+
+while n > 0:
+
+    digit = n % 10
+
+    if digit != 0:
+
+        x = x + digit * place
+        sum = sum + digit
+        place = place * 10
+
+    n = n // 10
+
+print(x * sum)
