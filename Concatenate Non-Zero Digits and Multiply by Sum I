@@ -1,18 +1,22 @@
-n=2346
-x = 0
-sum = 0
-place = 1
+#The problem is about removing the zeros and then arranging the digit
+#(Continue..)then arranging the digit in their respective places using the place holder variable.
 
-while n > 0:
+n=2346 #input variable which has to concatinated and then multiplied with it sum of digit
+x = 0 # this varaible holds the digit to be multiplied with the sum value
+sum = 0 # We find the sum of the digits and store the value in this variable
+place = 1 # This variable is used to make the digit to be perfectly placed
 
-    digit = n % 10
+while n > 0: # this while loop brings the n variable till the number reaches less than zero
 
-    if digit != 0:
+    digit = n % 10 #It returns the last digit of the 'n' value
 
-        x = x + digit * place
-        sum = sum + digit
-        place = place * 10
+    if digit != 0: #This condition only proceeds of the digit is not equal to zero
 
-    n = n // 10
+        x = x + digit * place # This is where the main concept of digit placing happens
+        sum = sum + digit # The sum is updated with the digit
+        place = place * 10 # This is the variable which helps pointing the digit on respective place
 
-print(x * sum)
+    n = n // 10 #it returns the value without having the last digit
+
+print(x * sum) # Returns the answer with the digit multiplied with the sum
+
